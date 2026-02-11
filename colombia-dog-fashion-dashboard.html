@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard: Moda Canina en Colombia - Oportunidades y Riesgos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #f0f0f0;
+        }
+
+        .icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .opportunity {
+            border-left: 5px solid #10b981;
+        }
+
+        .opportunity .icon {
+            color: #10b981;
+        }
+
+        .risk {
+            border-left: 5px solid #ef4444;
+        }
+
+        .risk .icon {
+            color: #ef4444;
+        }
+
+        .market-stat {
+            border-left: 5px solid #3b82f6;
+        }
+
+        .market-stat .icon {
+            color: #3b82f6;
+        }
+
+        .trend {
+            border-left: 5px solid #f59e0b;
+        }
+
+        .trend .icon {
+            color: #f59e0b;
+        }
+
+        .content-list {
+            list-style: none;
+        }
+
+        .content-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            line-height: 1.6;
+        }
+
+        .content-list li:last-child {
+            border-bottom: none;
+        }
+
+        .content-list li:before {
+            content: "▸ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 15px 0;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .highlight strong {
+            color: #d97706;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            color: #666;
+            margin-top: 30px;
+        }
+
+        .section-full {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title .icon {
+            margin-right: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        th {
+            background: #f8f9fa;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-high {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-low {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐕 Dashboard: Moda Canina en Colombia</h1>
+            <p class="subtitle">Análisis de Oportunidades y Riesgos del Mercado 2026</p>
+        </header>
+
+        <div class="grid">
+            <div class="card market-stat">
+                <div class="card-header">
+                    <span class="icon">📊</span>
+                    <h2 class="card-title">Tamaño del Mercado</h2>
+                </div>
+                <div class="stat-value">$180M USD</div>
+                <p class="stat-label">Valor estimado del mercado de moda canina en Colombia (2026)</p>
+                <div class="highlight">
+                    <strong>Crecimiento proyectado:</strong> 15-18% anual
+                </div>
+            </div>
+
+            <div class="card market-stat">
+                <div class="card-header">
+                    <span class="icon">🐾</span>
+                    <h2 class="card-title">Demografía</h2>
+                </div>
+                <div class="stat-value">8.5M+</div>
+                <p class="stat-label">Perros mascotas en Colombia</p>
+                <ul class="content-list">
+                    <li>68% de hogares tienen al menos una mascota</li>
+                    <li>Bogotá, Medellín y Cali: principales mercados</li>
+                    <li>Clase media emergente impulsa el gasto</li>
+                </ul>
+            </div>
+
+            <div class="card trend">
+                <div class="card-header">
+                    <span class="icon">📈</span>
+                    <h2 class="card-title">Tendencias Clave</h2>
+                </div>
+                <ul class="content-list">
+                    <li>Humanización de mascotas en aumento</li>
+                    <li>Productos eco-friendly y sostenibles</li>
+                    <li>Personalización y diseños exclusivos</li>
+                    <li>E-commerce en crecimiento acelerado</li>
+                    <li>Influencers caninos en redes sociales</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-full">
+            <h2 class="section-title">
+                <span class="icon">✅</span>
+                Principales Oportunidades
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Oportunidad</th>
+                        <th>Descripción</th>
+                        <th>Potencial</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>E-Commerce Especializado</strong></td>
+                        <td>Plataformas online dedicadas a moda canina con entregas rápidas en ciudades principales. Solo 23% del mercado es online actualmente.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Productos Sostenibles</strong></td>
+                        <td>Ropa y accesorios fabricados con materiales reciclados y orgánicos. Alineado con tendencia de consumo consciente.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Diseños Temáticos Colombianos</strong></td>
+                        <td>Productos con motivos culturales colombianos: café, orquídeas, carriel, ruana, etc. Diferenciación local.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Servicios de Suscripción</strong></td>
+                        <td>Cajas mensuales con ropa y accesorios para perros. Modelo de negocio recurrente poco explorado en Colombia.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ropa Funcional</strong></td>
+                        <td>Productos para climas específicos (abrigos para clima frío en Bogotá, protección UV en costa). Necesidad real.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Colaboraciones con Diseñadores</strong></td>
+                        <td>Alianzas con diseñadores colombianos para colecciones exclusivas. Aprovecha talento local de moda.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pet Fashion Events</strong></td>
+                        <td>Desfiles y eventos de moda canina en centros comerciales y parques. Marketing experiencial y visibilidad.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personalización Tech</strong></td>
+                        <td>Apps para diseñar ropa personalizada con nombre, foto o medidas exactas del perro usando IA.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section-full">
+            <h2 class="section-title">
+                <span class="icon">⚠️</span>
+                Riesgos Importantes
+            </h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Riesgo</th>
+                        <th>Descripción</th>
+                        <th>Impacto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sensibilidad al Precio</strong></td>
+                        <td>Economía volátil y devaluación del peso colombiano. Productos de moda canina son "lujos" que se recortan primero en crisis.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Competencia China/Importaciones</strong></td>
+                        <td>Productos baratos de AliExpress, Shein Pet, y otras plataformas internacionales dominan segmento de bajo costo.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Regulaciones Aduaneras</strong></td>
+                        <td>Cambios en aranceles y procesos de importación pueden afectar costos. Restricciones en materiales textiles.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estacionalidad</strong></td>
+                        <td>Ventas concentradas en temporadas específicas (invierno, Halloween, Navidad). Flujo de caja irregular.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Percepción Cultural</strong></td>
+                        <td>Algunos segmentos ven la ropa para perros como innecesaria o hasta ridícula. Barrera de adopción en sectores tradicionales.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Logística y Devoluciones</strong></td>
+                        <td>Tallas incorrectas generan altas tasas de devolución (30-40%). Infraestructura logística limitada fuera de ciudades principales.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Concentración de Mercado</strong></td>
+                        <td>80% del mercado en Bogotá, Medellín, Cali. Dificultad para escalar a ciudades secundarias.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Calidad y Seguridad</strong></td>
+                        <td>Productos mal diseñados pueden causar lesiones o incomodidad. Riesgo reputacional y legal.</td>
+                        <td><span class="badge badge-high">Alto</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dependencia de Tendencias</strong></td>
+                        <td>Moda cambia rápido. Inventario puede quedar obsoleto. Requiere agilidad en diseño y producción.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Costos de Adquisición de Clientes</strong></td>
+                        <td>Marketing digital cada vez más caro. Competencia por keywords en Facebook/Instagram Ads aumenta costos CPC.</td>
+                        <td><span class="badge badge-medium">Medio</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="grid">
+            <div class="card opportunity">
+                <div class="card-header">
+                    <span class="icon">💡</span>
+                    <h2 class="card-title">Ventajas Competitivas Clave</h2>
+                </div>
+                <ul class="content-list">
+                    <li>Producción local para reducir tiempos de entrega</li>
+                    <li>Diseños adaptados a razas populares en Colombia</li>
+                    <li>Experiencia omnicanal (tiendas físicas + online)</li>
+                    <li>Comunidad y contenido en redes sociales</li>
+                    <li>Servicio al cliente personalizado y asesoría de tallas</li>
+                </ul>
+            </div>
+
+            <div class="card risk">
+                <div class="card-header">
+                    <span class="icon">🛡️</span>
+                    <h2 class="card-title">Estrategias de Mitigación</h2>
+                </div>
+                <ul class="content-list">
+                    <li>Guías de tallas virtuales con IA para reducir devoluciones</li>
+                    <li>Diversificación de productos (accesorios de menor precio)</li>
+                    <li>Alianzas con veterinarias y pet shops</li>
+                    <li>Producción ágil y bajo inventario (made-to-order)</li>
+                    <li>Contenido educativo sobre beneficios de ropa funcional</li>
+                </ul>
+            </div>
+
+            <div class="card trend">
+                <div class="card-header">
+                    <span class="icon">🎯</span>
+                    <h2 class="card-title">Segmentos Target</h2>
+                </div>
+                <ul class="content-list">
+                    <li>Millennials y Gen Z urbanos (25-40 años)</li>
+                    <li>Dueños de razas pequeñas y medianas</li>
+                    <li>Hogares con ingresos medios-altos</li>
+                    <li>Pet parents sin hijos humanos</li>
+                    <li>Influencers y creadores de contenido pet</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-full">
+            <h2 class="section-title">
+                <span class="icon">🗺️</span>
+                Recomendaciones Estratégicas
+            </h2>
+            <div class="grid">
+                <div class="card opportunity">
+                    <div class="card-header">
+                        <span class="icon">🚀</span>
+                        <h2 class="card-title">Fase 1: Lanzamiento</h2>
+                    </div>
+                    <ul class="content-list">
+                        <li>Enfoque en Bogotá y Medellín inicialmente</li>
+                        <li>3-5 diseños core basados en funcionalidad</li>
+                        <li>Marketplace primero (MercadoLibre, Instagram)</li>
+                        <li>Construir comunidad en redes sociales</li>
+                        <li>Validar product-market fit antes de escalar</li>
+                    </ul>
+                </div>
+
+                <div class="card opportunity">
+                    <div class="card-header">
+                        <span class="icon">📱</span>
+                        <h2 class="card-title">Fase 2: Crecimiento</h2>
+                    </div>
+                    <ul class="content-list">
+                        <li>Lanzar e-commerce propio</li>
+                        <li>Expandir a Cali, Barranquilla, Cartagena</li>
+                        <li>Introducir línea premium y línea económica</li>
+                        <li>Programa de afiliados con influencers</li>
+                        <li>Pop-up stores en centros comerciales</li>
+                    </ul>
+                </div>
+
+                <div class="card opportunity">
+                    <div class="card-header">
+                        <span class="icon">🌎</span>
+                        <h2 class="card-title">Fase 3: Expansión</h2>
+                    </div>
+                    <ul class="content-list">
+                        <li>Exportación a países andinos (Ecuador, Perú)</li>
+                        <li>Lanzar marketplace B2B para pet shops</li>
+                        <li>Colecciones de diseñadores invitados</li>
+                        <li>Diversificación a accesorios y camas</li>
+                        <li>Explorar franquicias o tiendas propias</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Dashboard creado para análisis del mercado de moda canina en Colombia - 2026</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Datos basados en investigación de mercado y tendencias actuales del sector pet en Colombia</p>
+        </footer>
+    </div>
+</body>
+</html>
